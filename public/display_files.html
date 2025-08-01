@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home/upload</a></li>
+            <li><a href="/download">Download</a></li>
+        </ul>
+    </nav>
+    <div id="fileDisplay">
+
+
+    <h3>Uploaded Files</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>File Name</th>
+                <th>File Size</th>
+                <th>File Type</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="fileList">
+            <!-- File entries will be dynamically inserted here -->
+        </tbody>
+    </table>
+    <!-- Display the selected pdf here -->
+    </div>     
+
+    
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('/api/files')
+            .then(response => response.json())
+            .then(data => {
+                const fileList = document.getElementById('fileList');
+                console.log(data);
+                data.forEach(file => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${file.id}</td>
+                        <td>${file.email}</td>
+                        <td>${file.originalname}</td>
+                        <td>
+                            <a href="/api/download/${file.email}">Download</a>
+                        </td>
+                    `;
+                    fileList.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error fetching files:', error));
+    });
+</script>
+</html>
