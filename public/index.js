@@ -6,7 +6,7 @@
 
 // Function to handle file upload
 async function uploadFile(event) {
-    event.preventDefault(); // Prevent the default form submission
+    event.preventDefault(); // Prevent the default form submission(empty)
 
     const id = document.getElementById('id').value;
 const email = document.getElementById('email').value;   
